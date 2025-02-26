@@ -1,0 +1,42 @@
+{
+  "name": "@plonegovbr/volto-brwidgets",
+  "version": "1.0.0-alpha.0",
+  "description": "Packages implementing widgets used in Brazil for Volto projects",
+  "main": "src/index.js",
+  "license": "MIT",
+  "keywords": [
+    "volto-widgets",
+    "volto-addon",
+    "volto",
+    "brazil",
+    "plone",
+    "react"
+  ],
+  "author": "PloneGov-BR",
+  "homepage": "https://github.com/plonegovbr/brfieldsandwidgets#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:plonegovbr/brfieldsandwidgets.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon",
+    "dry-release": "release-it --dry-run",
+    "release": "release-it",
+    "release-major-alpha": "release-it major --preRelease=alpha",
+    "release-alpha": "release-it --preRelease=alpha"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "prop-types": "15.8.1",
+    "semantic-ui-react": "2.1.5"
+  },
+  "devDependencies": {
+    "@plone/scripts": "^3.6.1",
+    "release-it": "^17.1.1"
+  }
+}

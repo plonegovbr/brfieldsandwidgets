@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"POT-Creation-Date: 2025-02-26T19:47:27.533Z\n"
+"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8\n"
+"Domain: volto\n"
+
+#. Default: "O CEP deve ser no formato 99999-999"
+#: helpers/MessageLabels
+msgid "O CEP deve ser no formato 99999-999"
+msgstr ""
+
+#. Default: "O CEP informado não é válido"
+#: helpers/MessageLabels
+msgid "O CEP informado não é válido"
+msgstr ""
+
+#. Default: "O CNPJ deve ser no formato 99.999.999/9999-99"
+#: helpers/MessageLabels
+msgid "O CNPJ deve ser no formato 99.999.999/9999-99"
+msgstr ""
+
+#. Default: "O CNPJ informado não é válido"
+#: helpers/MessageLabels
+msgid "O CNPJ informado não é válido"
+msgstr ""
+
+#. Default: "O CPF deve ser no formato 999.999.999-99"
+#: helpers/MessageLabels
+msgid "O CPF deve ser no formato 999.999.999-99"
+msgstr ""
+
+#. Default: "O CPF informado não é válido"
+#: helpers/MessageLabels
+msgid "O CPF informado não é válido"
+msgstr ""
+
+#. Default: "O telefone deve ser no formato (99) 9999-999 ou (99) 99999-999"
+#: helpers/MessageLabels
+msgid "O telefone deve ser no formato (99) 9999-999 ou (99) 99999-999"
+msgstr ""
+
+#. Default: "O telefone informado não é válido"
+#: helpers/MessageLabels
+msgid "O telefone informado não é válido"
+msgstr ""

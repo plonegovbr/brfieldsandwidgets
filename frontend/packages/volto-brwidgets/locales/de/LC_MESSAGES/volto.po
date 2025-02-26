@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: de\n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. Default: "O CEP deve ser no formato 99999-999"
+#: helpers/MessageLabels
+msgid "O CEP deve ser no formato 99999-999"
+msgstr ""
+
+#. Default: "O CEP informado não é válido"
+#: helpers/MessageLabels
+msgid "O CEP informado não é válido"
+msgstr ""
+
+#. Default: "O CNPJ deve ser no formato 99.999.999/9999-99"
+#: helpers/MessageLabels
+msgid "O CNPJ deve ser no formato 99.999.999/9999-99"
+msgstr ""
+
+#. Default: "O CNPJ informado não é válido"
+#: helpers/MessageLabels
+msgid "O CNPJ informado não é válido"
+msgstr ""
+
+#. Default: "O CPF deve ser no formato 999.999.999-99"
+#: helpers/MessageLabels
+msgid "O CPF deve ser no formato 999.999.999-99"
+msgstr ""
+
+#. Default: "O CPF informado não é válido"
+#: helpers/MessageLabels
+msgid "O CPF informado não é válido"
+msgstr ""
+
+#. Default: "O telefone deve ser no formato (99) 9999-999 ou (99) 99999-999"
+#: helpers/MessageLabels
+msgid "O telefone deve ser no formato (99) 9999-999 ou (99) 99999-999"
+msgstr ""
+
+#. Default: "O telefone informado não é válido"
+#: helpers/MessageLabels
+msgid "O telefone informado não é válido"
+msgstr ""
