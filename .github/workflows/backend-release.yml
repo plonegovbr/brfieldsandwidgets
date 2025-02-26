@@ -3,6 +3,9 @@ name: Backend CI
 on:
   workflow_call:
     inputs:
+      base-tag:
+        required: true
+        type: string
       image-name-prefix:
         required: true
         type: string
