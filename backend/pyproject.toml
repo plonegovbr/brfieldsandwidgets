@@ -187,3 +187,7 @@ testpaths = ["tests"]
 source_pkgs = ["plonegovbr.brfields", "tests"]
 branch = true
 parallel = true
+omit = [
+  "src/plonegovbr/brfields/locales/__init__.py",
+  "src/plonegovbr/brfields/locales/__main__.py",
+]
