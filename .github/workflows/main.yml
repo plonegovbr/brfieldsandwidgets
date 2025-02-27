@@ -15,7 +15,7 @@ env:
   IMAGE_NAME_PREFIX: ghcr.io/plonegovbr/brfieldsandwidgets
   NODE_VERSION: "22.x"
   PYTHON_VERSION: "3.12"
-  PLONE_VERSION: "6.1-latest"
+  PLONE_VERSION: "6.1"
 
 jobs:
   config:
