@@ -51,6 +51,7 @@ jobs:
             backend:
               - 'backend/**'
               - '.github/workflows/backend.yml'
+              - '.github/workflows/backend-release.yml'
             frontend:
               - 'frontend/**'
               - '.github/workflows/frontend.yml'

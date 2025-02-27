@@ -76,7 +76,19 @@ This monorepo hosts two packages:
 - **backend/**: Python package `plonegovbr.brfields` for Plone Dexterity fields.
 - **frontend/**: React package `@plonegovbr/volto-brwidgets` for Volto widgets.
 
-## Code Quality Assurance 🧐
+## Contributing 🤝
+
+Contributions are welcome! If you find any issues or want to suggest improvements, please check out:
+
+- [Source Code](https://github.com/plonegovbr/brfieldsandwidgets/) 💻
+- [Issue Tracker](https://github.com/plonegovbr/brfieldsandwidgets/issues) 🐛
+
+Every pull request requires a [Change log entruy](https://6.docs.plone.org/contributing/index.html#change-log-entry). The location of the `news` folder is the following:
+
+- **backend**: `backend/news`
+- **frontend**: `frontend/packages/volto-brwidgets/news`
+
+### Code Quality Assurance 🧐
 
 Ensure your code follows best practices by running the following commands:
 
@@ -94,7 +106,7 @@ make lint
 
 You can also run these commands separately in the `backend` or `frontend` folders.
 
-## Internationalization 🌐
+### Internationalization 🌐
 
 Easily generate translation files for both Plone and Volto:
 
