@@ -72,3 +72,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             PLONE_VERSION=${{ inputs.plone-version }}
+            SEED=$GITHUB_RUN_ID

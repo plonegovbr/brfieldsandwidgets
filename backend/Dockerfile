@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG PLONE_VERSION=6.1.0
+ARG SEED=1000
 FROM plone/server-builder:${PLONE_VERSION} AS builder
 
 WORKDIR /app
@@ -35,4 +36,7 @@ COPY --from=builder /app /app
 RUN <<EOT
     set -e
     ln -s /data /app/var
+    # Create a new site with content
+    cat ${SEED} > /app/__created__.txt
+    SEED=${SEED} ./docker-entrypoint.sh create-site
 EOT

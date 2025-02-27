@@ -49,6 +49,7 @@ services:
       - traefik.http.routers.rt-frontend.entrypoints=http
       - traefik.http.routers.rt-frontend.service=svc-frontend
       - traefik.http.routers.rt-frontend.middlewares=gzip
+
   backend:
     image: ghcr.io/plonegovbr/brfieldsandwidgets-backend:latest
     platform: linux/amd64
