@@ -1,4 +1,4 @@
-name: Backend CI
+name: Backend Lint
 
 on:
   workflow_call:

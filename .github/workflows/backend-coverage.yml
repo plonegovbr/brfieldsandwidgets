@@ -1,4 +1,4 @@
-name: Backend Test Coverage CI
+name: Backend Test Coverage
 
 on:
   workflow_call:

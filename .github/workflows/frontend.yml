@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend Lint and Tests
 
 on:
   workflow_call:
