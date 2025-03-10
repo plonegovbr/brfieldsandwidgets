@@ -1,6 +1,6 @@
 [repository]
 name = "brfieldsandwidgets"
-is_distribution = false
+managed_by_uv = false
 changelog = "CHANGELOG.md"
 version = "version.txt"
 compose = "docker-compose.yml"
