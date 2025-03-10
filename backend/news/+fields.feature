@@ -1,0 +1,1 @@
+Add fields for CEP, CNPJ, CPF, Estados and Telefone @ericof
