@@ -1,0 +1,24 @@
+[repository]
+name = "brfieldsandwidgets"
+is_distribution = false
+changelog = "CHANGELOG.md"
+version = "version.txt"
+compose = "docker-compose.yml"
+
+[backend]
+path = "backend"
+
+[backend.package]
+name = "plonegovbr.brfields"
+path = "backend"
+changelog = "backend/CHANGELOG.md"
+towncrier_settings = "backend/pyproject.toml"
+
+[frontend]
+path = "frontend"
+
+[frontend.package]
+name = "volto-brwidgets"
+path = "frontend/packages/volto-brwidgets"
+changelog = "frontend/packages/volto-brwidgets/CHANGELOG.md"
+towncrier_settings = "frontend/packages/volto-brwidgets/towncrier.toml"
