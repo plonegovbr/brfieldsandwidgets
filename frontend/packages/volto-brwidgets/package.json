@@ -1,6 +1,6 @@
 {
   "name": "@plonegovbr/volto-brwidgets",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Packages implementing widgets used in Brazil for Volto projects",
   "main": "src/index.js",
   "license": "MIT",
