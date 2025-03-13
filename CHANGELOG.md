@@ -5,18 +5,13 @@
 
 ### Backend
 
-
-#### New features:
-
-- Add fields for CEP, CNPJ, CPF, Estados and Telefone @ericof 
-
-
+No significant changes
 
 ### Frontend
 
 #### Internal
 
-- Fix versioning for frontend package. @ericof 
+- Fix versioning for frontend package. @ericof
 
 
 
@@ -27,7 +22,7 @@
 
 #### New features:
 
-- Add fields for CEP, CNPJ, CPF, Estados and Telefone @ericof 
+- Add fields for CEP, CNPJ, CPF, Estados and Telefone @ericof
 
 
 
@@ -35,6 +30,4 @@
 
 #### Feature
 
-- Add widgets for CEP, CNPJ, CPF, Estados and Telefone @ericof 
-
-
+- Add widgets for CEP, CNPJ, CPF, Estados and Telefone @ericof
