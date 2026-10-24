@@ -11,7 +11,7 @@ myst:
 
 # Explore the fields on a development site
 
-In this tutorial, we will run this repository's development site, and fill in a content item that uses every field the packages provide.
+In this tutorial, you'll run this repository's development site, and fill in a content item that uses every field the packages provide.
 By the end, you will have seen each widget format a value as you type it, and Plone refuse a value that is not valid.
 
 ## Before you start
