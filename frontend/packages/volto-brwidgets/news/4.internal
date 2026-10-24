@@ -1,1 +1,0 @@
-Convert the add-on to TypeScript, build every widget on a shared `MaskedInputWidget`, and develop it against Volto 19.5.1. @ericof

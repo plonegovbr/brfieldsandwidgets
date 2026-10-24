@@ -1,6 +1,6 @@
 {
   "name": "@plonegovbr/volto-brwidgets-dev",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-beta.1",
   "description": "Volto widgets for data used in Brazilian projects: CEP, CNPJ, CPF, states, and phone numbers.",
   "author": "PloneGov-BR",
   "homepage": "https://github.com/plonegovbr/brfieldsandwidgets",

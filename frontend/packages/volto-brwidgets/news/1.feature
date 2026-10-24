@@ -1,1 +1,0 @@
-Validate and format CEP, CNPJ, CPF, and phone numbers with the @brazilian-utils/brazilian-utils library. The phone validator now refuses a number that is neither a valid landline nor a valid mobile number. @ericof

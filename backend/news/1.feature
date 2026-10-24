@@ -1,1 +1,0 @@
-Validate CEP, CNPJ, CPF, and phone numbers with the brutils library instead of validate-docbr. A CEP may now be punctuated with a dot, and a landline number must start with a digit from 2 to 5 after the area code. @ericof

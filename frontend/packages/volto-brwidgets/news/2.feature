@@ -1,1 +1,0 @@
-Created Storybooks for the components. @humanice

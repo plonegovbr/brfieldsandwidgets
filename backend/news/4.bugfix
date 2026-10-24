@@ -1,1 +1,0 @@
-Fix the add permission of the demo content type, which named a permission that does not exist, so no one could add a `DemoContent` item. @ericof
