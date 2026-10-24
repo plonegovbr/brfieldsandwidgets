@@ -39,12 +39,13 @@ The add-on registers one `validator` utility per widget, with a dependency on th
 
 | Name | Method | Refuses |
 |---|---|---|
-| `cep` | `isValidCEP` | A value that is not eight digits. |
+| `cep` | `isValidCEP` | A value that is not eight digits, or is not a valid CEP. |
 | `cnpj` | `isValidCNPJ` | A value that is not fourteen digits, or whose check digits are wrong. |
-| `cpf` | `isValidCPF` | A value whose check digits are wrong. |
-| `telefone` | `isValidTelefone` | A value with fewer than ten or more than eleven digits. |
+| `cpf` | `isValidCPF` | A value that is not eleven digits, or whose check digits are wrong. |
+| `telefone` | `isValidTelefone` | A value with fewer than ten or more than eleven digits, or that is not a valid landline or mobile number. |
 
 A validator accepts no value, and returns the error message to show otherwise.
+The validators and the edit widgets of CEP, CNPJ, and CPF call the [@brazilian-utils/brazilian-utils](https://www.npmjs.com/package/@brazilian-utils/brazilian-utils) library.
 
 ## Components
 

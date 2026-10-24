@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { testIntl } from '../testing';
 import { isValidCEP } from './cep';
 import { isValidCNPJ } from './cnpj';
+import { isValidCPF } from './cpf';
 import { isValidTelefone } from './telefone';
 
 /**
@@ -65,6 +66,32 @@ describe('isValidCNPJ', () => {
   });
 });
 
+describe('isValidCPF', () => {
+  it.each([['37731335453'], ['00829102868']])('accepts %s', (value) => {
+    expect(validate(isValidCPF, value)).toBeUndefined();
+  });
+
+  it.each([['3773133545'], ['377313354530']])(
+    'refuses %s for its length',
+    (value) => {
+      expect(validate(isValidCPF, value)).toBe(
+        'O CPF deve ser no formato 999.999.999-99',
+      );
+    },
+  );
+
+  it.each([['37731335450'], ['99999999999']])(
+    'refuses %s for its check digits',
+    (value) => {
+      expect(validate(isValidCPF, value)).toBe('O CPF informado não é válido');
+    },
+  );
+
+  it.each([[undefined], [null], ['']])('accepts no value: %j', (value) => {
+    expect(validate(isValidCPF, value)).toBeUndefined();
+  });
+});
+
 describe('isValidTelefone', () => {
   it.each([['1133334444'], ['11987654321']])('accepts %s', (value) => {
     expect(validate(isValidTelefone, value)).toBeUndefined();
@@ -81,6 +108,15 @@ describe('isValidTelefone', () => {
       'O telefone informado não é válido',
     );
   });
+
+  it.each([['1103334444'], ['0133334444']])(
+    'refuses %s for its format',
+    (value) => {
+      expect(validate(isValidTelefone, value)).toBe(
+        'O telefone informado não é válido',
+      );
+    },
+  );
 
   it.each([[undefined], [null], ['']])('accepts no value: %j', (value) => {
     expect(validate(isValidTelefone, value)).toBeUndefined();

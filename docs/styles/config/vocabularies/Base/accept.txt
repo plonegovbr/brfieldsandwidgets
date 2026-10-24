@@ -3,6 +3,7 @@
 (?i)cpf
 (?i)estados?
 (?i)telefone
+brutils
 DemoContent
 Barceloneta
 Cookieplone

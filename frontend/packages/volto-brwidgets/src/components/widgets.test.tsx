@@ -112,6 +112,52 @@ describe.each(WIDGETS)(
   },
 );
 
+describe.each([
+  {
+    name: 'cep',
+    Widget: CEPWidget,
+    typed: '013101009',
+    shown: '01310-100',
+    partial: '013101',
+    partialShown: '01310-1',
+  },
+  {
+    name: 'cnpj',
+    Widget: CNPJWidget,
+    typed: '112223330001819',
+    shown: '11.222.333/0001-81',
+    partial: '11222',
+    partialShown: '11.222',
+  },
+  {
+    name: 'cpf',
+    Widget: CPFWidget,
+    typed: '377313354539',
+    shown: '377.313.354-53',
+    partial: '3773',
+    partialShown: '377.3',
+  },
+])(
+  '$name widget input',
+  ({ name, Widget, typed, shown, partial, partialShown }) => {
+    it('drops digits past the end of the mask', () => {
+      render(<Widget id={name} title={name} value={typed} />);
+
+      expect((screen.getByRole('textbox') as HTMLInputElement).value).toBe(
+        shown,
+      );
+    });
+
+    it('formats a partial value', () => {
+      render(<Widget id={name} title={name} value={partial} />);
+
+      expect((screen.getByRole('textbox') as HTMLInputElement).value).toBe(
+        partialShown,
+      );
+    });
+  },
+);
+
 describe('CPFWidgetDisplay', () => {
   it('shows a value masked for privacy as it is', () => {
     const { container } = render(<CPFWidgetDisplay value="***.313.354-**" />);

@@ -1,6 +1,6 @@
 import type { ValidatorUtilityArgs } from '@plone/types';
+import { isValidCNPJ as validaCNPJ } from '@brazilian-utils/brazilian-utils';
 import { messages } from '../helpers/MessageLabels';
-import { validaCNPJ } from '../helpers/validadores';
 
 /**
  * Volto validator for the CNPJ widget.

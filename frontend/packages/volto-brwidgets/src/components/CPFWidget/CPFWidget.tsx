@@ -7,9 +7,8 @@ import MaskedInputWidget, {
   type WidgetDisplayProps,
   type WidgetProps,
 } from '../MaskedInputWidget/MaskedInputWidget';
-import { applyMask, type MaybeString } from '../../helpers/format';
-
-const mask = '999.999.999-999';
+import { formatCPF as brFormatCPF } from '@brazilian-utils/brazilian-utils';
+import type { MaybeString } from '../../helpers/format';
 
 /**
  * Format a CPF for display.
@@ -17,7 +16,8 @@ const mask = '999.999.999-999';
  * @param value The digits of the CPF.
  * @returns The formatted CPF.
  */
-export const formatCPF = (value: MaybeString): string => applyMask(value, mask);
+export const formatCPF = (value: MaybeString): string =>
+  brFormatCPF(value ?? '');
 
 /** CPFWidget, a widget for a CPF value. */
 const CPFWidget = (props: WidgetProps) => (

@@ -7,9 +7,8 @@ import MaskedInputWidget, {
   type WidgetDisplayProps,
   type WidgetProps,
 } from '../MaskedInputWidget/MaskedInputWidget';
-import { applyMask, type MaybeString } from '../../helpers/format';
-
-const mask = '99999-999';
+import { formatCEP as brFormatCEP } from '@brazilian-utils/brazilian-utils';
+import type { MaybeString } from '../../helpers/format';
 
 /**
  * Format a CEP for display.
@@ -17,12 +16,13 @@ const mask = '99999-999';
  * @param value The digits of the CEP.
  * @returns The formatted CEP.
  */
-export const formatCEP = (value: MaybeString): string => applyMask(value, mask);
+export const formatCEP = (value: MaybeString): string =>
+  brFormatCEP(value ?? '');
 
 /** CEPWidget, a widget for a CEP value. */
 const CEPWidget = (props: WidgetProps) => (
   <MaskedInputWidget
-    maxLength={mask.length}
+    maxLength={9}
     {...props}
     format={formatCEP}
     className="cep"

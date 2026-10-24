@@ -56,6 +56,9 @@ def test_mascara_cpf(value: str, expected: str):
         ["81994340171", True],
         ["03001234", False],
         ["8133011285", True],
+        ["1169641234", False],
+        ["81894340171", False],
+        ["(11) 94289-3564", False],
     ],
 )
 def test_valida_telefone(value: str, expected: bool):
@@ -71,6 +74,8 @@ def test_valida_telefone(value: str, expected: bool):
         ["01332-010", True],
         ["99999-999", True],
         ["12345", False],
+        ["01332.010", True],
+        ["0133201", False],
     ],
 )
 def test_valida_cep(value: str, expected: bool):

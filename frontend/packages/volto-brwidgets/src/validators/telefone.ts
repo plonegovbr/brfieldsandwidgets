@@ -1,4 +1,5 @@
 import type { ValidatorUtilityArgs } from '@plone/types';
+import { isValidPhone } from '@brazilian-utils/brazilian-utils';
 import { messages } from '../helpers/MessageLabels';
 
 /**
@@ -13,7 +14,7 @@ export function isValidTelefone({
 }: ValidatorUtilityArgs): string | undefined {
   if (value && value.length < 10) {
     return formatMessage(messages.telefoneLen);
-  } else if (value && value.length > 11) {
+  } else if (value && (value.length > 11 || !isValidPhone(value))) {
     return formatMessage(messages.telefoneInvalid);
   }
 }

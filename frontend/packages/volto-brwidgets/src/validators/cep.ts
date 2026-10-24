@@ -1,6 +1,6 @@
 import type { ValidatorUtilityArgs } from '@plone/types';
+import { isValidCEP as validaCEP } from '@brazilian-utils/brazilian-utils';
 import { messages } from '../helpers/MessageLabels';
-import { validaCEP } from '../helpers/validadores';
 
 /**
  * Volto validator for the CEP widget.

@@ -34,6 +34,12 @@ The server checks it again because the browser is only one of the ways a value a
 The server's check is the one that counts.
 A value that only the frontend validated is not guaranteed to be valid, while a value stored through the backend is, whatever client stored it.
 
+Neither package writes its own check digit arithmetic.
+The backend calls [brutils](https://pypi.org/project/brutils/), and the frontend calls [@brazilian-utils/brazilian-utils](https://www.npmjs.com/package/@brazilian-utils/brazilian-utils), two libraries maintained by the same community.
+Their rules are close but not identical.
+For example, the frontend library accepts some mobile numbers that the backend refuses.
+When they disagree, the backend wins, and the editor sees its error when saving.
+
 ## Why store digits only
 
 The widgets hand Volto the digits of a value, and add the punctuation back only to show it.

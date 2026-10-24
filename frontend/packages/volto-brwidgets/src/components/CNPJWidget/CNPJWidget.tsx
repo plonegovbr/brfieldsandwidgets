@@ -7,9 +7,8 @@ import MaskedInputWidget, {
   type WidgetDisplayProps,
   type WidgetProps,
 } from '../MaskedInputWidget/MaskedInputWidget';
-import { applyMask, type MaybeString } from '../../helpers/format';
-
-const mask = '99.999.999/9999-99';
+import { formatCNPJ as brFormatCNPJ } from '@brazilian-utils/brazilian-utils';
+import type { MaybeString } from '../../helpers/format';
 
 /**
  * Format a CNPJ for display.
@@ -18,12 +17,12 @@ const mask = '99.999.999/9999-99';
  * @returns The formatted CNPJ.
  */
 export const formatCNPJ = (value: MaybeString): string =>
-  applyMask(value, mask);
+  brFormatCNPJ(value ?? '');
 
 /** CNPJWidget, a widget for a CNPJ value. */
 const CNPJWidget = (props: WidgetProps) => (
   <MaskedInputWidget
-    maxLength={mask.length}
+    maxLength={18}
     {...props}
     format={formatCNPJ}
     className="cnpj"

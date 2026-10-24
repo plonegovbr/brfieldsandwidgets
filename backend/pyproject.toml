@@ -31,10 +31,10 @@ classifiers = [
 ]
 dependencies = [
     "Products.CMFPlone",
+    "brutils>=2.5.0",
     "plone.api",
     "plone.restapi",
     "plone.volto",
-    "validate-docbr>=1.10.0",
 ]
 
 [project.optional-dependencies]

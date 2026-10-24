@@ -37,7 +37,7 @@ Every interface extends the interface of its base, and every field provides `IFr
 A Brazilian postal code.
 
 Accepts
-:   Eight digits, with or without a hyphen after the fifth: `01310100` or `01310-100`.
+:   Eight digits, as digits only or punctuated with hyphens or dots: `01310100`, `01310-100`, or `01310.100`.
     An empty string is accepted too.
 
 (reference-fields-cnpj)=
@@ -79,12 +79,13 @@ See {doc}`vocabularies`.
 A phone number with its area code, as digits only.
 
 Accepts
-:   A landline number: two area code digits from 1 to 9, then eight digits starting with 2 to 8, such as `1133334444`.
+:   A landline number: two area code digits from 1 to 9, then eight digits starting with 2 to 5, such as `1133334444`.
 :   A mobile number: two area code digits from 1 to 9, then nine digits starting with 9, such as `11987654321`.
 
 ## Helpers
 
 The module `plonegovbr.brfields.utils.dados_br` holds the checks the fields use.
+The checks call the [brutils](https://pypi.org/project/brutils/) library.
 
 | Function | Returns |
 |---|---|
