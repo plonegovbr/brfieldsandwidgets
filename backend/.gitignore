@@ -1,22 +1,45 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
+# python related
 *.egg-info
+*.pyc
+*.pyo
+
+# tools related
+__pycache__/
+.coverage
 .mypy_cache
 .pytest_cache
 .ruff_cache
-.coverage
+/build/
+coverage.xml
+dist/
+docs/_build
+node_modules/
 
-# Virtual environments
-.venv
-uv.lock
+# venv / buildout related
+.eggs/
+.installed.cfg
+.mr.developer.cfg
+.venv/
+bin/
+develop-eggs/
+eggs/
+etc/
+include/
+lib/
+lib64
+parts/
+pyvenv.cfg
+var/
 
 # mxdev
+.installed.txt
+.lock
+/.mxdev_cache/
+/.make-sentinels/
+/*-mxdev.txt
+/instance/
+/reports/
+/sources/
+/venv/
 constraints*.txt
 requirements*.txt
-
-# Zope
-instance/

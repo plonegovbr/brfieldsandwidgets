@@ -1,6 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG PLONE_VERSION=6.1.0
-ARG SEED=1000
+ARG PLONE_VERSION=6.2.2
 FROM plone/server-builder:${PLONE_VERSION} AS builder
 
 WORKDIR /app
@@ -27,7 +26,7 @@ FROM plone/server-prod-config:${PLONE_VERSION}
 
 LABEL maintainer="PloneGov-BR <gov@plone.org.br>" \
       org.label-schema.name="brfieldsandwidgets-backend" \
-      org.label-schema.description="Brazilian Fields for Dexterity and Volto backend image." \
+      org.label-schema.description="Brazilian Fields and Widgets for Plone backend image." \
       org.label-schema.vendor="PloneGov-BR"
 
 # Copy /app from builder
@@ -36,7 +35,4 @@ COPY --from=builder /app /app
 RUN <<EOT
     set -e
     ln -s /data /app/var
-    # Create a new site with content
-    cat ${SEED} > /app/__created__.txt
-    SEED=${SEED} ./docker-entrypoint.sh create-site
 EOT
