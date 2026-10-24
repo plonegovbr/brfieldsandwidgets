@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG PLONE_VERSION=6.1.0
+ARG PLONE_VERSION=6.2.2
 FROM plone/server-builder:${PLONE_VERSION} AS builder
 
 WORKDIR /app
@@ -26,7 +26,7 @@ FROM plone/server-acceptance:${PLONE_VERSION}
 
 LABEL maintainer="PloneGov-BR <gov@plone.org.br>" \
       org.label-schema.name="brfieldsandwidgets-acceptance" \
-      org.label-schema.description="Brazilian Fields for Dexterity and Volto backend acceptance image." \
+      org.label-schema.description="Brazilian Fields and Widgets for Plone backend acceptance image." \
       org.label-schema.vendor="PloneGov-BR"
 
 ENV CONFIGURE_PACKAGES="plone.restapi,plone.volto,plone.volto.cors,plonegovbr.brfields"

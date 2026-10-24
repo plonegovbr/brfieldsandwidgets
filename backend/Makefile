@@ -15,9 +15,6 @@ GREEN=`tput setaf 2`
 RESET=`tput sgr0`
 YELLOW=`tput setaf 3`
 
-IMAGE_NAME_PREFIX=ghcr.io/plonegovbr/brfieldsandwidgets
-IMAGE_TAG=latest
-
 # Python checks
 UV?=uv
 
@@ -26,24 +23,35 @@ ifeq (, $(shell which $(UV) ))
   $(error "UV=$(UV) not found in $(PATH)")
 endif
 
+REPOSITORY_SETTINGS := $(shell uvx repoplone settings dump)
+IMAGE_NAME_PREFIX := $(shell echo '$(REPOSITORY_SETTINGS)' | jq -r '.container_images_prefix')
+IMAGE_NAME_SEPARATOR := -
+IMAGE_NAME_PREFIX_WITH_SEPARATOR := $(IMAGE_NAME_PREFIX)$(IMAGE_NAME_SEPARATOR)
+
+IMAGE_TAG=latest
+IMAGE_NAME=$(IMAGE_NAME_PREFIX_WITH_SEPARATOR)backend:$(IMAGE_TAG)
+
 PLONE_SITE_ID=Plone
 BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+EXAMPLE_CONTENT_FOLDER := $(shell echo '$(REPOSITORY_SETTINGS)' | jq -r '.backend.code_path')/setuphandlers/examplecontent
+PACKAGE_NAME := $(shell echo '$(REPOSITORY_SETTINGS)' | jq -r '.backend.name')
 
-ifdef PLONE_VERSION
-PLONE_VERSION := $(PLONE_VERSION)
-else
-PLONE_VERSION := 6.1-dev
-endif
-
-EXAMPLE_CONTENT_FOLDER=${BACKEND_FOLDER}/src/plonegovbr/brfields/setuphandlers/examplecontent
-
-GIT_FOLDER=$(BACKEND_FOLDER)/.git
 VENV_FOLDER=$(BACKEND_FOLDER)/.venv
+export VIRTUAL_ENV=$(VENV_FOLDER)
 BIN_FOLDER=$(VENV_FOLDER)/bin
 
 # Environment variables to be exported
 export PYTHONWARNINGS := ignore
 export DOCKER_BUILDKIT := 1
+export PYTHON_VERSION := 3.14
+export PLONE_VERSION := $(shell echo '$(REPOSITORY_SETTINGS)' | jq -r '.backend.base_package_version')
+
+ifdef CI
+UV_VENV_ARGS :=
+else
+UV_VENV_ARGS := --python=$(PYTHON_VERSION)
+endif
+
 
 all: build
 
@@ -53,14 +61,24 @@ all: build
 help: ## This help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-requirements-mxdev.txt: ## Generate constraints file
+
+.PHONY: debug-settings
+debug-settings:  ## Debug settings
+	@echo "PLONE_VERSION: $(PLONE_VERSION)"
+	@echo "PACKAGE_NAME: $(PACKAGE_NAME)"
+	@echo "EXAMPLE_CONTENT_FOLDER: $(EXAMPLE_CONTENT_FOLDER)"
+	@echo "IMAGE_NAME_PREFIX_WITH_SEPARATOR: $(IMAGE_NAME_PREFIX_WITH_SEPARATOR)"
+	@echo "IMAGE_NAME: $(IMAGE_NAME)"
+
+
+requirements-mxdev.txt: pyproject.toml mx.ini ## Generate constraints file
 	@echo "$(GREEN)==> Generate constraints file$(RESET)"
 	@echo '-c https://dist.plone.org/release/$(PLONE_VERSION)/constraints.txt' > requirements.txt
-	@uvx mxdev -c mx.ini
+	@uvx 'mxdev[uv]' -c mx.ini
 
 $(VENV_FOLDER): requirements-mxdev.txt ## Install dependencies
 	@echo "$(GREEN)==> Install environment$(RESET)"
-	@uv venv $(VENV_FOLDER)
+	@if [[ -d "$(VENV_FOLDER)" ]]; then echo "$(YELLOW)==> Environment already exists at $(VENV_FOLDER)$(RESET)"; else uv venv $(UV_VENV_ARGS) $(VENV_FOLDER); fi
 	@uv pip install -r requirements-mxdev.txt
 
 .PHONY: sync
@@ -68,9 +86,9 @@ sync: $(VENV_FOLDER) ## Sync project dependencies
 	@echo "$(GREEN)==> Sync project dependencies$(RESET)"
 	@uv pip install -r requirements-mxdev.txt
 
-instance/etc/zope.ini instance/etc/zope.conf: ## Create instance configuration
+instance/etc/zope.ini instance/etc/zope.conf: instance.yaml ## Create instance configuration
 	@echo "$(GREEN)==> Create instance configuration$(RESET)"
-	@uvx cookiecutter -f --no-input --config-file instance.yaml gh:plone/cookiecutter-zope-instance
+	@uvx cookiecutter -f --no-input -c 3.1.0 --config-file instance.yaml gh:plone/cookiecutter-zope-instance
 
 .PHONY: config
 config: instance/etc/zope.ini
@@ -81,26 +99,31 @@ install: $(VENV_FOLDER) config ## Install Plone and dependencies
 .PHONY: clean
 clean: ## Clean installation and instance
 	@echo "$(RED)==> Cleaning environment and build$(RESET)"
-	@rm -rf $(VENV_FOLDER) pyvenv.cfg .installed.cfg instance .venv .pytest_cache .ruff_cache constraints* requirements*
+	@rm -rf $(VENV_FOLDER) pyvenv.cfg .installed.cfg instance/etc .venv .pytest_cache .ruff_cache constraints* requirements*
+
+.PHONY: remove-data
+remove-data: ## Remove all content
+	@echo "$(RED)==> Removing all content$(RESET)"
+	rm -rf $(VENV_FOLDER) instance/var
 
 .PHONY: start
 start: $(VENV_FOLDER) instance/etc/zope.ini ## Start a Plone instance on localhost:8080
-	@uv run runwsgi instance/etc/zope.ini
+	@$(BIN_FOLDER)/runwsgi instance/etc/zope.ini
 
 .PHONY: console
 console: $(VENV_FOLDER) instance/etc/zope.ini ## Start a console into a Plone instance
-	@uv run zconsole debug instance/etc/zope.conf
+	@$(BIN_FOLDER)/zconsole debug instance/etc/zope.conf
 
 .PHONY: create-site
 create-site: $(VENV_FOLDER) instance/etc/zope.ini ## Create a new site from scratch
-	@uv run zconsole run instance/etc/zope.conf ./scripts/create_site.py
+	@$(BIN_FOLDER)/zconsole run instance/etc/zope.conf ./scripts/create_site.py
 
 # Example Content
 .PHONY: update-example-content
-update-example-content: $(VENV_FOLDER) instance/etc/zope.conf ## Export example content inside package
+update-example-content: $(VENV_FOLDER) ## Export example content inside package
 	@echo "$(GREEN)==> Export example content into $(EXAMPLE_CONTENT_FOLDER) $(RESET)"
 	if [ -d $(EXAMPLE_CONTENT_FOLDER)/content ]; then rm -r $(EXAMPLE_CONTENT_FOLDER)/* ;fi
-	@uv run plone-exporter instance/etc/zope.conf $(PLONE_SITE_ID) $(EXAMPLE_CONTENT_FOLDER)
+	@$(BIN_FOLDER)/plone-exporter instance/etc/zope.conf $(PLONE_SITE_ID) $(EXAMPLE_CONTENT_FOLDER)
 
 # QA
 .PHONY: lint
@@ -122,27 +145,31 @@ format: ## Check and fix code base according to Plone standards
 .PHONY: i18n
 i18n: $(VENV_FOLDER) ## Update locales
 	@echo "$(GREEN)==> Updating locales$(RESET)"
-	@uv run python -m plonegovbr.brfields.locales
+	@$(BIN_FOLDER)/python -m $(PACKAGE_NAME).locales
 
 # Tests
 .PHONY: test
 test: $(VENV_FOLDER) ## run tests
-	@uv run pytest
+	@$(BIN_FOLDER)/pytest
 
 .PHONY: test-coverage
 test-coverage: $(VENV_FOLDER) ## run tests with coverage
-	@uv run pytest --cov=plonegovbr.brfields --cov-report term-missing
+	@$(BIN_FOLDER)/pytest --cov=$(PACKAGE_NAME) --cov-report term-missing
 
 # Build Docker images
 .PHONY: build-image
 build-image:  ## Build Docker Images
-	@docker build . -t $(IMAGE_NAME_PREFIX)-backend:$(IMAGE_TAG) -f Dockerfile --build-arg PLONE_VERSION=$(PLONE_VERSION)
+	@docker build . -t $(IMAGE_NAME) -f Dockerfile --build-arg PLONE_VERSION=$(PLONE_VERSION)
 
 # Acceptance tests
 .PHONY: acceptance-backend-start
 acceptance-backend-start: ## Start backend acceptance server
-	ZSERVER_HOST=0.0.0.0 ZSERVER_PORT=55001 LISTEN_PORT=55001 APPLY_PROFILES="plonegovbr.brfields:default" CONFIGURE_PACKAGES="plone.restapi,plone.volto,plone.volto.cors,plonegovbr.brfields" uv run robot-server plone.app.robotframework.testing.VOLTO_ROBOT_TESTING
+	ZSERVER_HOST=0.0.0.0 ZSERVER_PORT=55001 LISTEN_PORT=55001 APPLY_PROFILES="$(PACKAGE_NAME):default" CONFIGURE_PACKAGES="plone.restapi,plone.volto,plone.volto.cors,$(PACKAGE_NAME)" $(BIN_FOLDER)/robot-server plone.app.robotframework.testing.VOLTO_ROBOT_TESTING
 
 .PHONY: acceptance-image-build
 acceptance-image-build:  ## Build Docker Images
-	@docker build . -t $(IMAGE_NAME_PREFIX)-backend-acceptance:$(IMAGE_TAG) -f Dockerfile.acceptance --build-arg PLONE_VERSION=$(PLONE_VERSION)
+	@docker build . -t $(IMAGE_NAME_PREFIX_WITH_SEPARATOR)backend-acceptance:$(IMAGE_TAG) -f Dockerfile.acceptance --build-arg PLONE_VERSION=$(PLONE_VERSION)
+
+## Add bobtemplates features (check bobtemplates.plone's documentation to get the list of available features)
+add: $(VENV_FOLDER)
+	@uvx plonecli add $(filter-out $@,$(MAKECMDGOALS))

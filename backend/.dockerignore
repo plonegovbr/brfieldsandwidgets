@@ -1,11 +1,14 @@
+.editorconfig
 .gitattributes
-.venv
-constraints*
+bin
 Dockerfile
 Dockerfile.acceptance
 include
 instance
 instance.yaml
+lib
+lib64
 Makefile
 pyvenv.cfg
-requirements*
+var
+.venv

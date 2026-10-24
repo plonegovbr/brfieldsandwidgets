@@ -3,7 +3,7 @@ name: brfieldsandwidgets
 
 services:
   traefik:
-    image: traefik:v2.11
+    image: traefik:v3.7
 
     ports:
       - 80:80
@@ -11,10 +11,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.constraint-label=public
-      - traefik.http.routers.traefik-public-http.rule=Host(`traefik.brfieldsandwidgets.localhost`)
-      - traefik.http.routers.traefik-public-http.entrypoints=http
-      - traefik.http.routers.traefik-public-http.service=api@internal
-      - traefik.http.services.traefik-public.loadbalancer.server.port=8000
 
       # GENERIC MIDDLEWARES
       - traefik.http.middlewares.gzip.compress=true
@@ -31,9 +27,12 @@ services:
       - --accesslog
       - --log
       - --api
+
   frontend:
-    image: ghcr.io/plonegovbr/brfieldsandwidgets-frontend:latest
-    platform: linux/amd64
+    build:
+      context: ./frontend
+      args:
+        - VOLTO_VERSION=${VOLTO_VERSION}
     environment:
       RAZZLE_INTERNAL_API_PATH: http://backend:8080/Plone
     depends_on:
@@ -51,8 +50,14 @@ services:
       - traefik.http.routers.rt-frontend.middlewares=gzip
 
   backend:
-    image: ghcr.io/plonegovbr/brfieldsandwidgets-backend:latest
-    platform: linux/amd64
+    build:
+      context: ./backend
+      args:
+        - PLONE_VERSION=${PLONE_VERSION}
+    environment:
+      ZEO_ADDRESS: "zeo:8100"
+    depends_on:
+      - zeo
     labels:
       - traefik.enable=true
       - traefik.constraint-label=public
@@ -80,3 +85,16 @@ services:
       - traefik.http.routers.rt-backend-api.entrypoints=http
       - traefik.http.routers.rt-backend-api.service=svc-backend
       - traefik.http.routers.rt-backend-api.middlewares=gzip,mw-backend-vhm-api
+      ## /ClassicUI
+      - traefik.http.routers.rt-backend-classic.rule=Host(`brfieldsandwidgets.localhost`) && PathPrefix(`/ClassicUI`)
+      - traefik.http.routers.rt-backend-classic.entrypoints=http
+      - traefik.http.routers.rt-backend-classic.service=svc-backend
+      - traefik.http.routers.rt-backend-classic.middlewares=gzip,mw-backend-auth,mw-backend-vhm-classic
+
+  zeo:
+    image: plone/plone-zeo:6.0.0
+    volumes:
+      - vol-site-data:/data
+
+volumes:
+  vol-site-data: {}

@@ -1,0 +1,1 @@
+Fix the CPF validator refusing every CPF, and the CPF widget accepting one digit more than a CPF holds. @ericof

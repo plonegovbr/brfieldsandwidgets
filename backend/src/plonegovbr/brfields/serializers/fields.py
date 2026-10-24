@@ -5,8 +5,8 @@ from plonegovbr.brfields.fields.cnpj import ICNPJ
 from plonegovbr.brfields.fields.cpf import ICPF
 from plonegovbr.brfields.fields.fone import ITelefone
 from zope.component import adapter
-from zope.interface import Interface
 from zope.interface import implementer
+from zope.interface import Interface
 
 
 @adapter(ICNPJ, Interface, Interface)

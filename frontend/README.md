@@ -3,7 +3,8 @@
 Package implementing Volto widgets for fields provided by the [plonegovbr.brfields](https://github.com/plonegovbr/brfieldsandwidgets/) Plone package.
 
 [![npm](https://img.shields.io/npm/v/@plonegovbr/volto-brwidgets)](https://www.npmjs.com/package/@plonegovbr/volto-brwidgets)
-[![](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://plonegovbr.github.io/brfieldsandwidgets/)
+[![](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://plonegovbr.github.io/brfieldsandwidgets/storybook/)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-0083be)](https://plonegovbr.github.io/brfieldsandwidgets/)
 [![Code analysis checks](https://github.com/plonegovbr/brfieldsandwidgets/actions/workflows/main.yml/badge.svg)](https://github.com/plonegovbr/brfieldsandwidgets/actions/workflows/main.yml)
 
 ## Features ✨
@@ -20,7 +21,7 @@ This package provides widgets for the following Dexterity fields:
 
 To install this package, select the method appropriate for your Volto version.
 
-### Volto 18 and Later
+### Volto 19
 
 1. Add `@plonegovbr/volto-brwidgets` to your `package.json` dependencies:
 
@@ -48,7 +49,7 @@ Run Volto and visit [http://localhost:3000](http://localhost:3000). Log in and v
 
 ## Development 💻
 
-Development is managed using `pnpm` workspaces, `mrs-developer`, and other Volto core improvements. This add-on is compatible only with `pnpm` and **Volto 18+**.
+Development is managed using `pnpm` workspaces, `mrs-developer`, and other Volto core improvements. This add-on is compatible only with `pnpm` and **Volto 19**, and is developed against Volto 19.5.1.
 
 ### Prerequisites 🔧
 
@@ -106,7 +107,7 @@ make start
 
 #### Lint Code 🧹
 
-Run ESLint, Prettier, and Stylelint in analyze mode:
+Run ESLint, the TypeScript type check, Prettier, and Stylelint in analyze mode:
 
 ````sh
 make lint

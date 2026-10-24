@@ -21,6 +21,23 @@ def test_valida_cpf(value: str, expected: bool):
 @pytest.mark.parametrize(
     "value,expected",
     [
+        ["00000000000191", True],
+        ["00.000.000/0001-91", True],
+        ["11222333000181", True],
+        ["11222333000180", False],
+        ["00000000000000", False],
+        ["1122233300018", False],
+    ],
+)
+def test_valida_cnpj(value: str, expected: bool):
+    func = dados_br.valida_cnpj
+    result = func(value)
+    assert result is expected
+
+
+@pytest.mark.parametrize(
+    "value,expected",
+    [
         ["377.313.354-53", "***.313.354-**"],
         ["37731335453", "***.313.354-**"],
     ],
@@ -39,6 +56,9 @@ def test_mascara_cpf(value: str, expected: str):
         ["81994340171", True],
         ["03001234", False],
         ["8133011285", True],
+        ["1169641234", False],
+        ["81894340171", False],
+        ["(11) 94289-3564", False],
     ],
 )
 def test_valida_telefone(value: str, expected: bool):
@@ -54,6 +74,8 @@ def test_valida_telefone(value: str, expected: bool):
         ["01332-010", True],
         ["99999-999", True],
         ["12345", False],
+        ["01332.010", True],
+        ["0133201", False],
     ],
 )
 def test_valida_cep(value: str, expected: bool):

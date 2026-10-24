@@ -16,43 +16,27 @@ Additionally, the package provides the following named vocabulary:
 
 - `plonegovbr.vocabulary.estados`: 📌 A predefined list of Brazilian states.
 
+## Compatibility ✅
+
+| | |
+|---|---|
+| Plone | 6.1 and 6.2 |
+| Python | 3.11 to 3.14 |
+
 ## Installation 🛠️
 
-To install `plonegovbr.brfields`, add it to your project dependencies and install the package using your preferred method.
-
-### Using `setup.py` 🐍
-
-For projects managed via `setup.py`, edit your `setup.py` file and add `plonegovbr.brfields` to the `install_requires` list:
-
-````python
-install_requires = [
-    ...
-    "plonegovbr.brfields",
-]
-````
-
-Then, install the dependencies:
-
-````sh
-pip install -e .
-````
-
-### Using `pyproject.toml` 📜
-
-For projects using `pyproject.toml`, add `plonegovbr.brfields` to the **dependencies** list under the `[project]` section:
+Add `plonegovbr.brfields` to the **dependencies** list under the `[project]` section of your project's `pyproject.toml`:
 
 ````toml
 dependencies = [
-    ...
+    "Products.CMFPlone",
     "plonegovbr.brfields",
 ]
 ````
 
-Then, install the dependencies:
+Then install the dependencies as your project normally does, and install the **Brazilian Fields for Dexterity and Volto: Install** profile in your site.
 
-````sh
-pip install .
-````
+The [documentation](https://plonegovbr.github.io/brfieldsandwidgets/) has the full installation guide.
 
 ## Usage 📖
 
@@ -61,9 +45,9 @@ To use one of these fields in your content type, import the required field and i
 Example:
 
 ````python
-from plonegovbr.brfields.fields import CPF
-from zope.interface import Interface
 from plone.supermodel import model
+from plonegovbr.brfields import _
+from plonegovbr.brfields.fields import CPF
 
 
 class IDemoContent(model.Schema):

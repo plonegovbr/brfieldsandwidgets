@@ -22,7 +22,7 @@
   <property name="global_allow">True</property>
 
   <!-- Schema, class and security -->
-  <property name="add_permission">cmf.addPortalContents</property>
+  <property name="add_permission">cmf.AddPortalContent</property>
   <property name="klass">plonegovbr.brfields.content.demo.DemoContent</property>
   <property name="schema">plonegovbr.brfields.content.demo.IDemoContent</property>
 

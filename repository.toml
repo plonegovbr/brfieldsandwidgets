@@ -1,24 +1,34 @@
 [repository]
 name = "brfieldsandwidgets"
-managed_by_uv = false
 changelog = "CHANGELOG.md"
 version = "version.txt"
-compose = "docker-compose.yml"
+version_format = "semver"
+container_images_prefix = "ghcr.io/plonegovbr/brfieldsandwidgets"
+compose = ["docker-compose.yml"]
 
-[backend]
-path = "backend"
+[repository.towncrier]
+section = "Project"
+settings = "towncrier.toml"
 
 [backend.package]
 name = "plonegovbr.brfields"
 path = "backend"
+code_path = "src/plonegovbr/brfields"
 changelog = "backend/CHANGELOG.md"
 towncrier_settings = "backend/pyproject.toml"
-
-[frontend]
-path = "frontend"
+base_package = "Products.CMFPlone"
+publish = true
 
 [frontend.package]
-name = "volto-brwidgets"
+name = "@plonegovbr/volto-brwidgets"
 path = "frontend/packages/volto-brwidgets"
+code_path = "src"
 changelog = "frontend/packages/volto-brwidgets/CHANGELOG.md"
 towncrier_settings = "frontend/packages/volto-brwidgets/towncrier.toml"
+base_package = "@plone/volto"
+publish = true
+
+[cookieplone]
+template = "monorepo_addon"
+template_version = "cccf30f64531530f662d9b8fb326ea1eb465b380"
+generated_date = "2026-10-24 00:09:16"

@@ -1,8 +1,8 @@
 {
   "name": "@plonegovbr/volto-brwidgets",
   "version": "1.0.0-alpha.3",
-  "description": "Packages implementing widgets used in Brazil for Volto projects",
-  "main": "src/index.js",
+  "description": "Volto widgets for data used in Brazilian projects: CEP, CNPJ, CPF, states, and phone numbers.",
+  "main": "src/index.ts",
   "license": "MIT",
   "keywords": [
     "volto-widgets",
@@ -22,21 +22,39 @@
     "access": "public"
   },
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
     "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon",
     "dry-release": "release-it --dry-run",
     "release": "release-it",
     "release-major-alpha": "release-it major --preRelease=alpha",
     "release-alpha": "release-it --preRelease=alpha"
   },
-  "dependencies": {},
+  "addons": [],
+  "theme": "",
+  "dependencies": {
+    "@brazilian-utils/brazilian-utils": "^2.5.0"
+  },
   "peerDependencies": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "prop-types": "15.8.1",
-    "semantic-ui-react": "2.1.5"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intl": "^3.12.1",
+    "semantic-ui-react": "^2.1.5"
   },
   "devDependencies": {
-    "@plone/scripts": "^3.6.1",
-    "release-it": "^17.1.1"
+    "@plone/registry": "workspace:*",
+    "@plone/scripts": "workspace:*",
+    "@plone/types": "workspace:*",
+    "@storybook/react": "^8.0.4",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "jsdom": "^25.0.1",
+    "react-intl": "3.12.1",
+    "release-it": "^19.0.5",
+    "semantic-ui-react": "2.1.5",
+    "typescript": "^5.7.3",
+    "vitest": "^3.1.2"
   }
 }
